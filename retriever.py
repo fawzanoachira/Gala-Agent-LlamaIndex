@@ -37,10 +37,3 @@ def get_guest_info_retriever(query: str) -> str:
 
 
 guest_info_tool = FunctionTool.from_defaults(get_guest_info_retriever)
-
-llm = HuggingFaceInferenceAPI(model_name="Qwen/Qwen2.5-Coder-32B-Instruct")
-
-alfred = AgentWorkflow.from_tools_or_functions(
-    [guest_info_tool],
-    llm=llm,
-)
