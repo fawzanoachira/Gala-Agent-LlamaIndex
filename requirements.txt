@@ -1,3 +1,8 @@
 datasets==3.5.0
+gradio==5.25.2
 huggingface_hub==0.30.2
 llama_index==0.12.32
+llama-index-llms-huggingface==0.5.0
+llama-index-llms-huggingface-api==0.4.1
+llama-index-tools-duckduckgo==0.3.0
+llama-index-retrievers-bm25==0.5.2
