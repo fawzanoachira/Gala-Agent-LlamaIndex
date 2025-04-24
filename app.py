@@ -4,6 +4,7 @@ from llama_index.llms.fireworks import Fireworks
 from tools import search_tool, weather_info_tool, hub_stats_tool
 from retriever import guest_info_tool
 from dotenv import load_dotenv
+from huggingface_hub import InferenceClient
 
 import gradio as gr
 import asyncio, os
@@ -25,7 +26,7 @@ fw_api = os.getenv("fw_api")
 
 # llm = HuggingFaceInferenceAPI(model_name="Qwen/Qwen2.5-Coder-32B-Instruct")
 llm = Fireworks(
-    model="accounts/fireworks/models/llama-v2-7b-chat", api_key=fw_api
+    model="accounts/fireworks/models/deepseek-r1", api_key=fw_api
 )
 
 alfred = AgentWorkflow.from_tools_or_functions(
@@ -36,10 +37,12 @@ alfred = AgentWorkflow.from_tools_or_functions(
 
 async def answering(message, history):
     query = ""
-    for msg in history:
-        if msg["role"] == "user" and isinstance(msg["content"], tuple):
-            query = msg["content"][0]
-    response = asyncio.run(alfred.run(query))
+    for msg in message:
+        print(message)
+        # if msg["role"] == "user" and isinstance(msg["content"], tuple):
+            # query = msg["content"][0]
+            # print(query)
+    response = await alfred.run(message)
     return response
 
 
